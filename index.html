@@ -62,6 +62,21 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
 #vsl .cta-sm:hover{background:var(--acd)}
 #vsl .head-ctas{display:flex;gap:8px;align-items:center;flex:none}
 #vsl .urg-sm{display:inline-block;background:var(--coral);color:var(--w);text-decoration:none;font-weight:800;font-size:14px;padding:9px 12px;border-radius:9px}
+#vsl .urg-dlg{border:0;padding:0;border-radius:18px;width:calc(100% - 32px);max-width:380px;color:var(--w);background:#FFFFFF;box-shadow:0 30px 70px -20px rgba(54,60,77,.45);font-family:inherit}
+#vsl .urg-dlg::backdrop{background:rgba(54,60,77,.45)}
+#vsl .urg-in{position:relative;padding:26px 22px 22px;text-align:center}
+#vsl .urg-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:var(--n9);color:var(--w);font-size:16px;cursor:pointer}
+#vsl .urg-dlg h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;line-height:1.1;margin:4px 0 18px}
+#vsl .urg-btns{display:grid;gap:10px}
+#vsl .urg-btns a{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;font-size:17px;padding:14px 18px;border-radius:12px}
+#vsl .urg-call{background:var(--ac);color:var(--acink)}
+#vsl .urg-call:hover{background:var(--acd)}
+#vsl .urg-call small{font-weight:600;font-size:13px;opacity:.9}
+#vsl .urg-wa{background:#FFFFFF;color:var(--actext);border:2px solid var(--ac)}
+#vsl .urg-wa:hover{background:var(--n9)}
+#vsl .urg-note{font-size:14.5px;line-height:1.45;color:var(--w2);margin-top:16px}
+#vsl .urg-safe{font-size:12.5px;line-height:1.45;color:var(--w3);margin-top:10px}
+#vsl .urg-sm{border:0;cursor:pointer;font-family:inherit}
 #vsl .urg-sm:hover,#vsl .urg:hover{background:#F39486}
 #vsl .urg{display:block;width:100%;max-width:440px;margin:22px auto 0;text-align:center;font-weight:800;background:var(--coralbg);border:1.5px solid var(--coral);color:var(--w);text-decoration:none;font-size:15.5px;line-height:1.35;padding:12px 16px;border-radius:12px;transition:background .2s}
 #vsl .urg b{font-weight:800}
@@ -104,7 +119,7 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
 <div id="vsl">
   <div class="head"><div class="wrap">
     <div class="brand"><img src="logo.png" alt="Odontología Sin Miedo"><small>Talca</small></div>
-    <div class="head-ctas"><a class="urg-sm" href="#">Tengo una urgencia</a></div>
+    <div class="head-ctas"><a class="urg-sm" id="urg-open" href="tel:+56923797159">Tengo una urgencia</a></div>
   </div></div>
 
   <header class="hero"><div class="wrap">
@@ -172,7 +187,23 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
     <p class="sub">Nos interesa conocerte, a tu ritmo y sin apuros.</p>
     <p class="sign">Odontología Sin Miedo<sup>®</sup> · Atiéndete en calma.</p>
   </div></section>
+  <dialog id="urg-dlg" class="urg-dlg" aria-labelledby="urg-t"><div class="urg-in">
+    <button type="button" class="urg-x" aria-label="Cerrar">✕</button>
+    <h3 id="urg-t">¿Tienes una urgencia?</h3>
+    <div class="urg-btns">
+      <a class="urg-call" href="tel:+56923797159">📞 Llamar <small>+56 9 2379 7159</small></a>
+      <a class="urg-wa" href="https://wa.me/56923797159?text=%C2%A1Hola%20Coni%21%20Tengo%20una%20urgencia%20dental%2C%20%C2%BFme%20pueden%20ayudar%3F" target="_blank" rel="noopener">💬 WhatsApp</a>
+    </div>
+    <p class="urg-note">Desde las 20:00 y hasta las 8:00, por favor llámanos: un mensaje de WhatsApp podríamos verlo recién a la mañana siguiente.</p>
+    <p class="urg-safe">Si tienes sangrado que no se detiene, hinchazón que dificulta respirar o tragar, o un golpe fuerte en la cara, acude de inmediato al servicio de urgencia más cercano.</p>
+  </div></dialog>
 </div>
+<script>
+(function(){var d=document.getElementById('urg-dlg'),o=document.getElementById('urg-open');if(!d||!o||typeof d.showModal!=='function')return;
+o.addEventListener('click',function(e){e.preventDefault();d.showModal();});
+d.querySelector('.urg-x').addEventListener('click',function(){d.close();});
+d.addEventListener('click',function(e){if(e.target===d)d.close();});})();
+</script>
 
 </body>
 </html>
