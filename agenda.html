@@ -63,8 +63,19 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 
 <script>
 (function () {
-  // Los datos que llegan desde la encuesta (nombre, correo, etc.) se pasan tal cual a Calendly.
-  var q = location.search.replace(/^\?/, "");
+  // Los datos que llegan desde la encuesta se pasan a Calendly. "a2" (el resumen de la
+  // encuesta) va al final de la dirección: todo lo que viene después de "a2=" le pertenece,
+  // aunque una respuesta traiga "&", "#" o "%". Esos signos se protegen para que nada se corte.
+  var href = location.href, i = href.indexOf("?");
+  var q = i >= 0 ? href.slice(i + 1) : "";
+  var m = /(^|&)a2=/.exec(q);
+  if (m) {
+    var desde = m.index + m[0].length;
+    var proteger = function (t) { return t.replace(/%(?![0-9A-Fa-f]{2})/g, "%25").replace(/#/g, "%23"); };
+    q = proteger(q.slice(0, desde)) + proteger(q.slice(desde)).replace(/&/g, "%26");
+  } else {
+    q = q.split("#")[0];
+  }
   var base = "https://calendly.com/odontologiasinmiedo/reunion-de-confianza";
   var extra = "hide_gdpr_banner=1&primary_color=177d86";
   document.getElementById("cal").setAttribute("data-url", base + "?" + (q ? q + "&" : "") + extra);
