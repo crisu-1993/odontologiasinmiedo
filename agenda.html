@@ -31,7 +31,9 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 .foot{text-align:center;padding:40px 0 56px;color:#646B7A;font-size:14px}
 .foot a{color:#167780}
 .sign{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:20px;color:#167780;margin:0 0 10px}
+.wa-nota{font-size:14px;color:#646B7A;margin:12px auto 0;max-width:44ch;text-wrap:balance}
 :focus-visible{outline:3px solid #177D86;outline-offset:3px}
+[hidden]{display:none !important}
 </style>
 </head>
 <body>
@@ -53,6 +55,7 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
     <h2>¿No te acomodan estos horarios?</h2>
     <p>Escríbenos y buscamos juntos otro momento.</p>
     <a class="wa" id="wa" href="https://wa.me/56923797159?text=%C2%A1Hola%20Coni!%20Ya%20respond%C3%AD%20la%20encuesta%2C%20pero%20no%20me%20acomodan%20los%20horarios%20de%20la%20reuni%C3%B3n%20de%20confianza.%20%C2%BFPodemos%20coordinar%20otro%20momento%3F" target="_blank" rel="noopener">💬 No puedo en estos horarios, prefiero coordinar por WhatsApp</a>
+    <p class="wa-nota" id="wa-nota" hidden>Se abrirá WhatsApp con tu mensaje y tus respuestas de la encuesta, para que no tengas que repetirlas. Solo tienes que enviarlo.</p>
   </div>
 </div></section>
 
@@ -63,30 +66,70 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 
 <script>
 (function () {
-  // Los datos que llegan desde la encuesta se pasan a Calendly. "a2" (el resumen de la
-  // encuesta) va al final de la dirección: todo lo que viene después de "a2=" le pertenece,
-  // aunque una respuesta traiga "&", "#" o "%". Esos signos se protegen para que nada se corte.
-  var href = location.href, i = href.indexOf("?");
-  var q = i >= 0 ? href.slice(i + 1) : "";
-  var m = /(^|&)a2=/.exec(q);
-  if (m) {
-    var desde = m.index + m[0].length;
-    var proteger = function (t) { return t.replace(/%(?![0-9A-Fa-f]{2})/g, "%25").replace(/#/g, "%23"); };
-    q = proteger(q.slice(0, desde)) + proteger(q.slice(desde)).replace(/&/g, "%26");
-  } else {
-    q = q.split("#")[0];
-  }
-  var base = "https://calendly.com/odontologiasinmiedo/reunion-de-confianza";
-  var extra = "hide_gdpr_banner=1&primary_color=177d86";
-  document.getElementById("cal").setAttribute("data-url", base + "?" + (q ? q + "&" : "") + extra);
+  var BASE = "https://calendly.com/odontologiasinmiedo/reunion-de-confianza";
+  var EXTRA = "hide_gdpr_banner=1&primary_color=177d86";
+  var WHATSAPP = "56923797159";
+  var LIMITE_CALENDLY = 7400; // Calendly rechaza direcciones de más de unos 8.000 caracteres
+  var LIMITE_WHATSAPP = 6000; // largo máximo del mensaje de WhatsApp
+  var AVISO = "\n[Algunas respuestas largas se acortaron aquí. La encuesta completa quedó registrada.]";
 
-  // Si conocemos el nombre, lo sumamos al mensaje de WhatsApp.
-  var nombre = "";
-  try { nombre = (new URLSearchParams(location.search).get("name") || "").trim(); } catch (e) {}
-  if (nombre && nombre.charAt(0) !== "@") {
-    var msg = "¡Hola Coni! Soy " + nombre + ". Ya respondí la encuesta, pero no me acomodan los horarios de la reunión de confianza. ¿Podemos coordinar otro momento?";
-    document.getElementById("wa").href = "https://wa.me/56923797159?text=" + encodeURIComponent(msg);
+  // 1. Leer lo que manda la encuesta. El resumen ("a2") va al final, después de "#", para que
+  //    una encuesta larga no haga fallar la página. Todo lo que viene después de "a2=" es parte
+  //    del resumen, aunque una respuesta traiga "&", "#" o "%".
+  var href = location.href, inicio = href.search(/[?#]/);
+  var resto = inicio >= 0 ? href.slice(inicio + 1) : "";
+  var sep = /(^|[&#?]|%23)a2=/.exec(resto);
+  var cabeza = (sep ? resto.slice(0, sep.index) : resto).split("#")[0].replace(/%(?![0-9A-Fa-f]{2})/g, "%25");
+  var crudo = sep ? resto.slice(sep.index + sep[0].length) : "";
+  function decodificar(t) {
+    t = t.replace(/%(?![0-9A-Fa-f]{2})/g, "%25").replace(/\+/g, " ");
+    try { return decodeURIComponent(t); } catch (e) {
+      return t.replace(/(%[0-9A-Fa-f]{2})+/g, function (m) { try { return decodeURIComponent(m); } catch (e2) { return m; } });
+    }
   }
+  var resumen = decodificar(crudo).replace(/\s+$/, "");
+
+  // Si algo no cabe, se acortan solo las respuestas más largas: ninguna pregunta se pierde.
+  function acortar(texto, cabe) {
+    if (cabe(texto)) return texto;
+    var lineas = texto.split("\n"), marca = " [...]";
+    function sinMarca(l) { return l.slice(-marca.length) === marca ? l.slice(0, -marca.length) : l; }
+    for (var v = 0; v < 400 && !cabe(lineas.join("\n") + AVISO); v++) {
+      var k = -1, largo = 80;
+      for (var j = 0; j < lineas.length; j++) {
+        var n = sinMarca(lineas[j]).length;
+        if (n > largo) { largo = n; k = j; }
+      }
+      if (k < 0) break;
+      var l = sinMarca(lineas[k]);
+      lineas[k] = l.slice(0, Math.floor(l.length * 0.85)).replace(/\s+\S*$/, "") + marca;
+    }
+    var res = lineas.join("\n") + AVISO;
+    while (!cabe(res) && res.length > 300) res = res.slice(0, Math.floor(res.length * 0.9)) + marca;
+    return res;
+  }
+
+  // 2. Calendly: nombre, correo y teléfono como antes, y el resumen completo de la encuesta.
+  var dir = BASE + "?" + (cabeza ? cabeza + "&" : "") + EXTRA;
+  if (resumen) {
+    var paraCalendly = acortar(resumen, function (t) { return (dir + "&a2=" + encodeURIComponent(t)).length <= LIMITE_CALENDLY; });
+    dir += "&a2=" + encodeURIComponent(paraCalendly);
+  }
+  document.getElementById("cal").setAttribute("data-url", dir);
+
+  // 3. WhatsApp: si no le acomodan los horarios, el mensaje lleva también sus respuestas,
+  //    para que la información de la encuesta llegue a la conversación.
+  var nombre = "";
+  try { nombre = (new URLSearchParams(cabeza).get("name") || "").trim(); } catch (e) {}
+  if (nombre.charAt(0) === "@") nombre = "";
+  var msg = "¡Hola Coni! " + (nombre ? "Soy " + nombre + ". " : "") + "Ya respondí la encuesta, pero no me acomodan los horarios de la reunión de confianza. ¿Podemos coordinar otro momento?";
+  var respuestas = resumen.split("\n").filter(function (l) { return !/:\s*$/.test(l); }).join("\n");
+  if (respuestas) {
+    var encabezado = msg + "\n\n*Mis respuestas de la encuesta*\n";
+    msg = encabezado + acortar(respuestas, function (t) { return (encabezado + t).length <= LIMITE_WHATSAPP; });
+    document.getElementById("wa-nota").hidden = false;
+  }
+  document.getElementById("wa").href = "https://api.whatsapp.com/send/?phone=" + WHATSAPP + "&text=" + encodeURIComponent(msg);
 
   var s = document.createElement("script");
   s.src = "https://assets.calendly.com/assets/external/widget.js";
