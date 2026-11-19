@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reunión de confianza · Odontología Sin Miedo</title>
-<meta name="description" content="Elige el día y la hora para tu reunión de confianza con Odontología Sin Miedo.">
+<title>Conozcámonos · Odontología Sin Miedo</title>
+<meta name="description" content="Elige el día y la hora para conocernos en Odontología Sin Miedo.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,8 +43,7 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 </div></div>
 
 <header class="hero"><div class="wrap">
-  <p class="kicker">Reunión de confianza</p>
-  <h1>Elige cuándo conversamos</h1>
+  <h1 id="saludo">Conozcámonos</h1>
   <p class="sub">Escoge el día y la hora que mejor te acomoden 👇</p>
 </div></header>
 
@@ -54,7 +53,7 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
   <div class="alt">
     <h2>¿No te acomodan estos horarios?</h2>
     <p>Escríbenos y buscamos juntos otro momento.</p>
-    <a class="wa" id="wa" href="https://wa.me/56923797159?text=%C2%A1Hola%20Coni!%20Ya%20respond%C3%AD%20la%20encuesta%2C%20pero%20no%20me%20acomodan%20los%20horarios%20de%20la%20reuni%C3%B3n%20de%20confianza.%20%C2%BFPodemos%20coordinar%20otro%20momento%3F" target="_blank" rel="noopener">💬 No puedo en estos horarios, prefiero coordinar por WhatsApp</a>
+    <a class="wa" id="wa" href="https://wa.me/56923797159?text=%C2%A1Hola%20Coni%21%20Ya%20respond%C3%AD%20la%20encuesta%2C%20pero%20no%20me%20acomodan%20los%20horarios%20para%20conocernos.%20%C2%BFPodemos%20coordinar%20otro%20momento%3F" target="_blank" rel="noopener">💬 No puedo en estos horarios, prefiero coordinar por WhatsApp</a>
   </div>
 </div></section>
 
@@ -66,27 +65,31 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 <script>
 (function () {
   var BASE = "https://calendly.com/odontologiasinmiedo/reunion-de-confianza";
-  var EXTRA = "hide_gdpr_banner=1&primary_color=177d86";
+  var EXTRA = "hide_event_type_details=1&hide_gdpr_banner=1&primary_color=177d86";
   var WHATSAPP = "56923797159";
 
-  // Solo se usan nombre, correo y teléfono. Las respuestas de la encuesta NO se pasan a
+  // Solo se usan nombre, correo, teléfono y cómo le gusta que le digan. Las demás respuestas de la encuesta NO se pasan a
   // Calendly ni a WhatsApp: llegan únicamente a la clínica, por correo, desde Tally.
   var p;
   try { p = new URLSearchParams(location.search); } catch (e) { p = null; }
   function dato(k) { var v = p ? (p.get(k) || "").trim() : ""; return v.charAt(0) === "@" ? "" : v; }
   var nombre = dato("name"), correo = dato("email"), fono = dato("a1");
+  // Cómo le gusta que le digan (si no respondió, se usa su primer nombre).
+  var apodo = dato("apodo") || nombre.split(/\s+/)[0] || "";
+  if (apodo) document.getElementById("saludo").textContent = "Conozcámonos, " + apodo;
 
   var q = [];
   if (nombre) q.push("name=" + encodeURIComponent(nombre));
   if (correo) q.push("email=" + encodeURIComponent(correo));
   if (fono) q.push("a1=" + encodeURIComponent(fono));
+  if (apodo) q.push("a2=" + encodeURIComponent(apodo));
   q.push(EXTRA);
   document.getElementById("cal").setAttribute("data-url", BASE + "?" + q.join("&"));
 
   // Limpia la dirección del navegador para que no queden datos en el historial.
   try { if (location.search || location.hash) history.replaceState(null, "", location.pathname); } catch (e) {}
 
-  var msg = "¡Hola Coni! " + (nombre ? "Soy " + nombre + ". " : "") + "Ya respondí la encuesta, pero no me acomodan los horarios de la reunión de confianza. ¿Podemos coordinar otro momento?";
+  var msg = "¡Hola Coni! " + (nombre ? "Soy " + nombre + ". " : "") + "Ya respondí la encuesta, pero no me acomodan los horarios para conocernos. ¿Podemos coordinar otro momento?";
   document.getElementById("wa").href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
 
   var s = document.createElement("script");
