@@ -115,6 +115,58 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
 #vsl .sign{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:20px;color:var(--actext);margin-top:14px}
 #vsl .mail{display:inline-block;margin-top:10px;color:var(--w2);font-size:15.5px;text-decoration:none;word-break:break-all}
 #vsl .mail:hover{color:var(--w2);text-decoration:none}
+#vsl .qs{background:var(--ac);color:#fff;clip-path:inset(0 0 round 0);transition:clip-path 1.3s cubic-bezier(.2,.7,.2,1)}
+.js #vsl .qs.pre{clip-path:inset(5% 7% round 36px)}
+#vsl .qs-stat b{font-variant-numeric:tabular-nums}
+#vsl .qs h2{color:#fff;font-size:clamp(34px,7vw,60px);line-height:1.04}
+#vsl .qs-k{color:var(--coral)}
+#vsl .hl{background:linear-gradient(transparent 84%,#F6A79C 84%,#F6A79C 96%,transparent 96%) no-repeat;background-size:100% 100%;transition:background-size 1.2s ease .9s}
+.js #vsl .qs.pre .hl{background-size:0% 100%}
+#vsl .qs-grid{display:grid;gap:22px}
+#vsl .qs-quote{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(22px,4.6vw,28px);line-height:1.3}
+#vsl .qs-txt{color:#E3F4F5;margin-top:14px}
+#vsl .qs-stats{margin-top:36px;padding-top:26px;border-top:1px solid rgba(255,255,255,.3);display:grid;gap:22px}
+#vsl .qs-stat{display:flex;align-items:baseline;gap:14px}
+#vsl .qs-stat b{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(44px,9vw,62px);line-height:1;flex:none}
+#vsl .qs-stat > span{font-size:15px;line-height:1.45;color:#E3F4F5;max-width:30ch}
+@media(min-width:820px){#vsl .qs-grid{grid-template-columns:7fr 5fr;gap:40px;align-items:end}#vsl .qs-stats{grid-template-columns:auto auto;justify-content:start;gap:56px;margin-top:52px}}
+#vsl .dif-grid{display:grid;gap:18px}
+#vsl .dif-row{display:grid;grid-template-columns:56px 1fr;column-gap:14px;row-gap:4px;padding:22px 0;border-top:1px solid var(--hair)}
+#vsl .dif-row:last-child{border-bottom:1px solid var(--hair)}
+#vsl .dif-n{grid-row:span 2;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:40px;line-height:1;color:#D9705F}
+#vsl .dif-row h3{font-size:19px}
+#vsl .dif-row p{color:var(--w2);font-size:16px}
+@media(min-width:820px){#vsl .dif-grid{grid-template-columns:4fr 8fr;gap:40px}#vsl .dif-row{grid-template-columns:88px 240px 1fr;column-gap:24px;align-items:baseline;padding:28px 0}#vsl .dif-n{grid-row:auto;font-size:50px}#vsl .dif-row h3{font-size:21px}}
+#vsl .pasos{background:var(--coralbg)}
+#vsl .view{overflow:hidden;margin-top:40px}
+#vsl .track{position:relative;display:grid;grid-template-columns:repeat(4,78%);transition:transform .25s ease-out}
+#vsl .line{position:absolute;left:39%;top:35px;height:2px;width:calc(78% * 3);background:rgba(23,125,134,.2)}
+#vsl .line i{position:absolute;inset:0;background:var(--ac);transform-origin:left;transform:scaleX(var(--p,1));transition:transform .25s ease-out}
+#vsl .step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding-inline:14px}
+#vsl .dot{position:relative;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:38px;background:var(--ac);color:#fff;border:2px solid var(--ac);box-shadow:0 0 0 8px rgba(23,125,134,.13);transition:background .5s,color .5s,transform .5s,box-shadow .5s}
+#vsl .txt{transition:opacity .7s ease,filter .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js #vsl .step.off .dot{background:var(--coralbg);color:var(--actext);transform:scale(.82);box-shadow:none}
+.js #vsl .step.off .txt{opacity:0;filter:blur(8px);transform:translateX(-30px)}
+#vsl .step h3{font-size:21px}
+#vsl .step p{color:var(--w2);font-size:16.5px;margin-top:6px;max-width:28ch}
+@media(min-width:820px){#vsl .view{margin-top:52px}#vsl .track{grid-template-columns:repeat(4,minmax(0,1fr));transform:none!important}#vsl .line{left:12.5%;width:75%}#vsl .step h3{font-size:22px}}
+#vsl .hero .wrap > *{animation:osmSettle 1.4s cubic-bezier(.2,.7,.2,1) both}
+#vsl .hero .wrap > :nth-child(2){animation-delay:.25s}#vsl .hero .wrap > :nth-child(3){animation-delay:.4s}#vsl .hero .wrap > :nth-child(4){animation-delay:.55s}#vsl .hero .wrap > :nth-child(5){animation-delay:.7s}
+@keyframes osmSettle{from{opacity:0;filter:blur(14px);transform:translateY(34px)}to{opacity:1;filter:blur(0);transform:none}}
+#vsl .dif-title{align-self:start}
+#vsl .dif-title p{color:var(--w2);margin-top:14px;max-width:28ch}
+@media(min-width:820px){#vsl .dif-title{position:sticky;top:110px}}
+#vsl .rv{transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),filter 1.1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.js #vsl .rv.pre{opacity:0;filter:blur(12px);transform:translateY(32px)}
+#vsl .dif-n,#vsl .dif-row h3,#vsl .dif-row p{transition:opacity .9s ease,filter .9s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+#vsl .dif-row h3{transition-delay:.25s}#vsl .dif-row p{transition-delay:.4s}
+.js #vsl .dif-row.pre .dif-n{opacity:0;filter:blur(10px);transform:translateX(-140px)}
+.js #vsl .dif-row.pre h3,.js #vsl .dif-row.pre p{opacity:0;filter:blur(8px);transform:translateX(-30px)}
+#vsl .para-ti li{transition:opacity .8s ease,filter .8s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+#vsl .para-ti li i{display:inline-block;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.js #vsl .para-ti li.pre{opacity:0;filter:blur(8px);transform:translateX(-50px)}
+.js #vsl .para-ti li.pre i{transform:translateX(-60px)}
+@media (prefers-reduced-motion: reduce){#vsl .hero .wrap > *{animation:none}.js #vsl .pre,.js #vsl .pre *,.js #vsl .step.off .dot,.js #vsl .step.off .txt{opacity:1!important;filter:none!important;transform:none!important;clip-path:none!important;background-size:100% 100%!important;transition:none!important}}
 #vsl :focus-visible{outline:3px solid var(--ac);outline-offset:3px}
 </style>
 
@@ -135,37 +187,46 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
     </div>
   </div></header>
 
-  <section class="deep"><div class="wrap">
-    <p class="kicker">Quiénes somos</p>
-    <h2>Odontología Sin Miedo<sup>®</sup>: una odontología distinta, que entiende tus miedos y los transforma en confianza</h2>
-    <p class="lead">Aquí no tienes que adaptarte a una atención rígida: nos adaptamos a tus tiempos y a lo que necesitas. Si lo prefieres, también contamos con sedación consciente con óxido nitroso como apoyo.</p>
-    <div class="grid c2">
-      <div class="card"><div class="stat">+5 años</div><h3>De experiencia clínica</h3><p>Atendiendo con un enfoque diferente a personas que llegaron con dudas, nervios o malas experiencias previas.</p></div>
-      <div class="card welcome"><div class="stat">🤍</div><h3>Un espacio para todos</h3><p>Aquí todos son bienvenidos. Nuestro método y enfoque se adaptan a tus necesidades.</p></div>
+  <section class="qs" id="qs"><div class="wrap">
+    <p class="kicker qs-k rv">Quiénes somos</p>
+    <div class="qs-grid">
+      <h2 class="rv">Una odontología distinta, que entiende tus miedos y los <span class="hl">transforma en confianza</span></h2>
+      <div class="qs-side rv">
+        <p class="qs-quote">“Aquí no tienes que adaptarte a una atención rígida: nos adaptamos a tus tiempos.”</p>
+        <p class="qs-txt">Y a lo que necesitas. Si lo prefieres, también contamos con sedación consciente con óxido nitroso como apoyo.</p>
+      </div>
     </div>
-    <h3 class="diff-h">Lo que nos diferencia</h3>
-    <div class="grid c4">
-      <div class="card pil"><p class="num">01</p><h3>Cercanía y contención</h3><p>Escuchamos antes de proponer. Lo que sientes es importante para nosotros.</p></div>
-      <div class="card pil"><p class="num">02</p><h3>Acompañamiento</h3><p>Te explicamos cada paso antes, durante y después de tu atención.</p></div>
-      <div class="card pil"><p class="num">03</p><h3>Libre de estrés</h3><p>Todo a tus tiempos: ajustamos el espacio para tu tranquilidad y seguridad durante la atención, y avanzamos a tu ritmo.</p></div>
-      <div class="card pil"><p class="num">04</p><h3>Decides con nosotros</h3><p>Un plan personalizado según tus necesidades y tolerancia.</p></div>
+    <div class="qs-stats rv">
+      <div class="qs-stat"><b>+<span id="years">5</span> años</b><span>de experiencia clínica, con personas que llegaron con dudas, nervios o malas experiencias</span></div>
+      <div class="qs-stat"><b>Todos</b><span>son bienvenidos: nuestro método y enfoque se adaptan a tus necesidades</span></div>
     </div>
   </div></section>
 
-  <section><div class="wrap">
-    <p class="kicker">Cómo funciona</p>
-    <h2>Así te acompañamos</h2>
-    <div class="grid c4">
-      <div class="card step"><div class="n">1</div><div><h3>Una encuesta breve</h3><p>Permítenos saber de ti antes de nuestro primer encuentro.</p></div></div>
-      <div class="card step"><div class="n">2</div><div><h3>Conozcámonos</h3><p>Queremos escuchar tu historia y avanzar juntos.</p></div></div>
-      <div class="card step"><div class="n">3</div><div><h3>Tu atención, paso a paso</h3><p>Te contamos qué haremos antes de hacerlo y avanzamos a tu ritmo durante nuestra cita.</p></div></div>
-      <div class="card step"><div class="n">4</div><div><h3>Te acompañamos</h3><p>Nos interesa saber cómo estás y cómo evolucionas con nuestra atención.</p></div></div>
+  <section class="dif"><div class="wrap dif-grid">
+    <div class="dif-title rv"><h2>Lo que nos diferencia</h2><p>Cuatro compromisos que guían cada atención.</p></div>
+    <div class="dif-list">
+      <div class="dif-row slide"><span class="dif-n">01</span><h3>Cercanía y contención</h3><p>Escuchamos antes de proponer. Lo que sientes es importante para nosotros.</p></div>
+      <div class="dif-row slide"><span class="dif-n">02</span><h3>Acompañamiento</h3><p>Te explicamos cada paso antes, durante y después de tu atención.</p></div>
+      <div class="dif-row slide"><span class="dif-n">03</span><h3>Libre de estrés</h3><p>Todo a tus tiempos: ajustamos el espacio para tu tranquilidad y seguridad durante la atención, y avanzamos a tu ritmo.</p></div>
+      <div class="dif-row slide"><span class="dif-n">04</span><h3>Decides con nosotros</h3><p>Un plan personalizado según tus necesidades y tolerancia.</p></div>
     </div>
   </div></section>
 
-  <section class="deep"><div class="wrap">
-    <p class="kicker">Antes de avanzar</p>
-    <h2>¿Es para ti?</h2>
+  <section class="pasos" id="pasos"><div class="wrap">
+    <p class="kicker rv" style="text-align:center">Cómo funciona</p>
+    <h2 class="rv" style="text-align:center">Así te acompañamos</h2>
+    <div class="view"><div class="track" id="track">
+      <div class="line" aria-hidden="true"><i id="lineFill"></i></div>
+      <div class="step"><div class="dot">1</div><div class="txt"><h3>Una encuesta breve</h3><p>Permítenos saber de ti antes de nuestro primer encuentro.</p></div></div>
+      <div class="step"><div class="dot">2</div><div class="txt"><h3>Conozcámonos</h3><p>Queremos escuchar tu historia y avanzar juntos.</p></div></div>
+      <div class="step"><div class="dot">3</div><div class="txt"><h3>Tu atención, paso a paso</h3><p>Te contamos qué haremos antes de hacerlo y avanzamos a tu ritmo durante nuestra cita.</p></div></div>
+      <div class="step"><div class="dot">4</div><div class="txt"><h3>Te acompañamos</h3><p>Nos interesa saber cómo estás y cómo evolucionas con nuestra atención.</p></div></div>
+    </div></div>
+  </div></section>
+
+  <section class="deep para-ti"><div class="wrap">
+    <p class="kicker rv">Antes de avanzar</p>
+    <h2 class="rv">¿Es para ti?</h2>
     <div class="grid c2 fit">
       <div class="card yes"><h3>✓ Esto es para ti si…</h3><ul>
         <li><i>✓</i><span>Te da miedo ir al dentista o has tenido una mala experiencia</span></li>
@@ -178,17 +239,17 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
         <li><i>✕</i><span>Buscas una atención sin compromiso</span></li>
       </ul></div>
     </div>
-    <div class="cta-pair">
+    <div class="cta-pair rv">
       <a class="cta" href="encuesta.html">Quiero que nos conozcamos →</a>
       <a class="cta-alt" href="https://wa.me/56923797159?text=%C2%A1Hola%20Coni%21%20Me%20gustar%C3%ADa%20que%20nos%20volvamos%20a%20ver%2C%20%C2%BFPara%20qu%C3%A9%20d%C3%ADa%20hay%20agenda%20disponible%3F" target="_blank" rel="noopener">Ya nos conocemos</a>
     </div>
   </div></section>
 
   <section class="form-head"><div class="wrap narrow">
-    <h2>Queremos escucharte</h2>
-    <p class="sub">Nos interesa conocerte, a tu ritmo y sin apuros.</p>
-    <p class="sign">Odontología Sin Miedo<sup>®</sup> · Atiéndete en calma.</p>
-    <a class="mail" href="mailto:contacto@odontologiasinmiedo.cl">contacto@odontologiasinmiedo.cl</a>
+    <h2 class="rv">Queremos escucharte</h2>
+    <p class="sub rv">Nos interesa conocerte, a tu ritmo y sin apuros.</p>
+    <p class="sign rv">Odontología Sin Miedo<sup>®</sup> · Atiéndete en calma.</p>
+    <a class="mail rv" href="mailto:contacto@odontologiasinmiedo.cl">contacto@odontologiasinmiedo.cl</a>
   </div></section>
   <dialog id="urg-dlg" class="urg-dlg" aria-labelledby="urg-t"><div class="urg-in">
     <button type="button" class="urg-x" aria-label="Cerrar">✕</button>
@@ -208,5 +269,52 @@ d.querySelector('.urg-x').addEventListener('click',function(){d.close();});
 d.addEventListener('click',function(e){if(e.target===d)d.close();});})();
 </script>
 
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js');
+  var years = document.getElementById('years'), qsT, cid;
+  function count(){ var n = 0; years.textContent = '0'; clearInterval(cid); cid = setInterval(function(){ n++; years.textContent = String(n); if (n >= 5) clearInterval(cid); }, 170); }
+  var els = [].slice.call(document.querySelectorAll('#vsl .rv, #vsl .dif-row.slide, #vsl .para-ti li, #qs'));
+  els.forEach(function(el){
+    el.classList.add('pre');
+    var par = el.parentElement, i = par ? [].indexOf.call(par.children, el) : 0;
+    if (el.tagName === 'LI') el.style.transitionDelay = (i * 140) + 'ms';
+    else if (el.classList.contains('rv')) el.style.transitionDelay = (Math.min(i, 4) * 110) + 'ms';
+  });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var el = e.target;
+      if (e.isIntersecting) {
+        if (el.classList.contains('pre')) { el.classList.remove('pre'); if (el.id === 'qs') { clearTimeout(qsT); qsT = setTimeout(count, 900); } }
+      } else if (e.boundingClientRect.top > 0) {
+        el.classList.add('pre');
+        if (el.id === 'qs') { clearTimeout(qsT); clearInterval(cid); years.textContent = '0'; }
+      }
+    });
+  }, {threshold: 0});
+  els.forEach(function(el){ io.observe(el); });
+
+  // Así te acompañamos: los pasos se recorren de izquierda a derecha mientras la sección entra en pantalla.
+  var sec = document.getElementById('pasos'), track = document.getElementById('track');
+  var fill = document.getElementById('lineFill'), steps = [].slice.call(track.querySelectorAll('.step'));
+  function apply(seen){
+    var h = sec.offsetHeight, p = (seen - h * 0.45) / (h * 0.55);
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    fill.style.setProperty('--p', p.toFixed(3));
+    var at = p * (steps.length - 1);
+    steps.forEach(function(st, i){ st.classList.toggle('off', at < i - 0.02); });
+    if (window.innerWidth < 820) {
+      var w = steps[0].offsetWidth, vw = track.parentElement.offsetWidth;
+      track.style.transform = 'translateX(' + (-(at * w) + (vw - w) / 2) + 'px)';
+    } else track.style.transform = '';
+  }
+  function now(){ var b = sec.getBoundingClientRect(); apply(b.top < 0 ? 1e6 : window.innerHeight - b.top); }
+  window.addEventListener('scroll', now, {passive: true});
+  window.addEventListener('resize', now);
+  now();
+})();
+</script>
 </body>
 </html>
