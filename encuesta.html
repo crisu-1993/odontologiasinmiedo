@@ -41,6 +41,13 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
 .foot a{color:#167780}
 .sign{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:20px;color:#167780;margin:0 0 10px}
 :focus-visible{outline:3px solid #177D86;outline-offset:3px}
+@keyframes settle{from{opacity:0;filter:blur(14px);transform:translateY(30px)}to{opacity:1;filter:blur(0);transform:none}}
+.hero .wrap > *{animation:settle 1.3s cubic-bezier(.2,.7,.2,1) both}
+.hero .wrap > :nth-child(2){animation-delay:.2s}.hero .wrap > :nth-child(3){animation-delay:.38s}
+.form .rut{animation:settle 1.3s cubic-bezier(.2,.7,.2,1) .55s both}
+#encuesta.wait{opacity:0}
+#encuesta.appear{animation:settle 1.2s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion: reduce){.hero .wrap > *,.form .rut,#encuesta.appear{animation:none}#encuesta.wait{opacity:1}}
 [hidden]{display:none !important}
 </style>
 </head>
@@ -126,6 +133,13 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clam
     f.setAttribute("title", "Antes de conocernos");
     // Se carga directo; embed.js de Tally solo ajusta la altura.
     f.src = BASE + "&rut=" + encodeURIComponent(rut) + "&originPage=" + encodeURIComponent(location.pathname);
+    // Las preguntas aparecen una vez, desde un difuminado, cuando la encuesta termina de cargar.
+    box.classList.remove("appear");
+    box.classList.add("wait");
+    var shown = false;
+    function mostrar() { if (shown) return; shown = true; box.classList.remove("wait"); void box.offsetWidth; box.classList.add("appear"); }
+    f.addEventListener("load", function () { setTimeout(mostrar, 150); });
+    setTimeout(mostrar, 3000);
     box.appendChild(f);
     if (tally === "listo") Tally.loadEmbeds();
   }

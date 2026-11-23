@@ -64,6 +64,13 @@ position:relative;width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:
 #vsl .urg-sm{display:inline-block;background:var(--coral);color:var(--w);text-decoration:none;font-weight:800;font-size:14px;padding:9px 12px;border-radius:9px}
 #vsl .urg-dlg{border:0;padding:0;border-radius:18px;width:calc(100% - 32px);max-width:380px;color:var(--w);background:#FFFFFF;box-shadow:0 30px 70px -20px rgba(54,60,77,.45);font-family:inherit}
 #vsl .urg-dlg::backdrop{background:rgba(54,60,77,.45)}
+#vsl .urg-dlg[open]{animation:osmDlg .5s ease both}
+#vsl .urg-dlg[open]::backdrop{animation:osmFade .5s ease both}
+#vsl .urg-dlg[open] .urg-in > *{animation:osmSettle 1s cubic-bezier(.2,.7,.2,1) both}
+#vsl .urg-dlg[open] .urg-in > :nth-child(2){animation-delay:.1s}#vsl .urg-dlg[open] .urg-in > :nth-child(3){animation-delay:.22s}#vsl .urg-dlg[open] .urg-in > :nth-child(4){animation-delay:.34s}#vsl .urg-dlg[open] .urg-in > :nth-child(5){animation-delay:.46s}
+@keyframes osmDlg{from{opacity:0;filter:blur(10px);transform:translateY(24px)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes osmFade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){#vsl .urg-dlg[open],#vsl .urg-dlg[open]::backdrop,#vsl .urg-dlg[open] .urg-in > *{animation:none}}
 #vsl .urg-in{position:relative;padding:26px 22px 22px;text-align:center}
 #vsl .urg-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:var(--n9);color:var(--w);font-size:16px;cursor:pointer}
 #vsl .urg-dlg h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;line-height:1.1;margin:4px 0 18px}
